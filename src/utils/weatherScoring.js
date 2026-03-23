@@ -31,31 +31,68 @@ function findClosestEntry(hourly, targetTime) {
 }
 
 /**
- * Score weather data against a profile at a specific time.
- * Returns { score: 0-1, entry: weather data for that time }
+ * Find all hourly entries within a date range, filtered to daytime (8-20).
  */
-export function scoreWeather(weatherData, profileId, customParams, targetTime) {
-  if (!weatherData?.hourly?.length) return { score: 0, entry: null };
+function findEntriesInRange(hourly, startTime, endTime) {
+  const start = new Date(startTime).getTime();
+  const end = new Date(endTime).getTime();
+  return hourly.filter((e) => {
+    const t = new Date(e.time);
+    const ms = t.getTime();
+    const hour = t.getHours();
+    return ms >= start && ms <= end && hour >= 8 && hour <= 20;
+  });
+}
 
-  const entry = findClosestEntry(weatherData.hourly, targetTime);
-  if (!entry) return { score: 0, entry: null };
-
-  const params = profileId === 'custom'
-    ? (customParams || getDefaultCustomParams())
-    : PROFILES[profileId]?.params;
-
-  if (!params) return { score: 0, entry };
-
+function scoreEntry(entry, params) {
   let totalScore = 0;
   let totalWeight = 0;
-
   for (const p of params) {
     const value = entry[p.key];
     const s = scoreParam(value, p.idealMin, p.idealMax, p.falloff);
     totalScore += s * p.weight;
     totalWeight += p.weight;
   }
+  return totalWeight > 0 ? totalScore / totalWeight : 0;
+}
 
-  const score = totalWeight > 0 ? totalScore / totalWeight : 0;
-  return { score, entry };
+/**
+ * Score weather data against a profile.
+ * If endTime is provided, scores across the range (daytime hours) and returns the average.
+ * Returns { score: 0-1, entry: representative weather entry }
+ */
+export function scoreWeather(weatherData, profileId, customParams, targetTime, endTime) {
+  if (!weatherData?.hourly?.length) return { score: 0, entry: null };
+
+  const params = profileId === 'custom'
+    ? (customParams || getDefaultCustomParams())
+    : PROFILES[profileId]?.params;
+
+  if (!params) return { score: 0, entry: null };
+
+  // Single point in time
+  if (!endTime) {
+    const entry = findClosestEntry(weatherData.hourly, targetTime);
+    if (!entry) return { score: 0, entry: null };
+    const score = scoreEntry(entry, params);
+    return { score, entry };
+  }
+
+  // Date range: average score across daytime hours
+  const entries = findEntriesInRange(weatherData.hourly, targetTime, endTime);
+  if (!entries.length) {
+    const entry = findClosestEntry(weatherData.hourly, targetTime);
+    const score = entry ? scoreEntry(entry, params) : 0;
+    return { score, entry };
+  }
+
+  let totalScore = 0;
+  for (const entry of entries) {
+    totalScore += scoreEntry(entry, params);
+  }
+  const score = totalScore / entries.length;
+
+  // Use the midpoint entry as representative for display
+  const midEntry = entries[Math.floor(entries.length / 2)];
+  return { score, entry: midEntry };
 }

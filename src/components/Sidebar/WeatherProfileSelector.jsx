@@ -9,6 +9,7 @@ export default function WeatherProfileSelector() {
   const {
     origin,
     weatherProfile, setWeatherProfile,
+    scoreThreshold, setScoreThreshold,
     customProfileParams, setCustomProfileParams,
   } = useTripContext();
 
@@ -58,6 +59,27 @@ export default function WeatherProfileSelector() {
             {t(`profiles.${id}`)}
           </button>
         ))}
+      </div>
+
+      {/* Threshold filter */}
+      <div className="mb-3 pb-3 border-b border-gray-100">
+        <div className="flex justify-between text-xs text-gray-500 mb-1">
+          <span>Vis bare treff over</span>
+          <span className="font-medium">{Math.round(scoreThreshold * 100)}%</span>
+        </div>
+        <input
+          type="range"
+          min={0}
+          max={0.9}
+          step={0.1}
+          value={scoreThreshold}
+          onChange={(e) => setScoreThreshold(parseFloat(e.target.value))}
+          className="w-full accent-green-500 h-1"
+        />
+        <div className="flex justify-between text-xs text-gray-400 mt-0.5">
+          <span>Vis alt</span>
+          <span>Bare det beste</span>
+        </div>
       </div>
 
       {/* Parameter sliders */}

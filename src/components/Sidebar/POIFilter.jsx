@@ -1,16 +1,19 @@
 import { useTranslation } from 'react-i18next';
 import { useTripContext } from '../../contexts/TripContext';
+import { usePOIs } from '../../hooks/usePOIs';
 import { POI_TYPES } from '../../constants';
 
 export default function POIFilter() {
   const { t } = useTranslation();
   const { origin, enabledPOITypes, setEnabledPOITypes } = useTripContext();
+  const { isLoading, data: pois } = usePOIs();
 
   function toggle(type) {
     setEnabledPOITypes((prev) => ({ ...prev, [type]: !prev[type] }));
   }
 
   const anyEnabled = Object.values(enabledPOITypes).some(Boolean);
+  const count = pois?.length || 0;
 
   return (
     <div className={!origin ? 'opacity-40 pointer-events-none' : ''}>
@@ -36,6 +39,15 @@ export default function POIFilter() {
           );
         })}
       </div>
+      {anyEnabled && isLoading && (
+        <div className="flex items-center gap-1.5 mt-1.5 text-xs text-gray-400">
+          <div className="w-3 h-3 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+          Henter steder fra OpenStreetMap...
+        </div>
+      )}
+      {anyEnabled && !isLoading && count > 0 && (
+        <p className="text-xs text-gray-400 mt-1.5">{count} steder funnet</p>
+      )}
       {!anyEnabled && origin && (
         <p className="text-xs text-gray-400 mt-1.5 italic">
           Velg en kategori for å vise steder på kartet

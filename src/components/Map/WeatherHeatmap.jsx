@@ -5,16 +5,17 @@ import { scoreWeather } from '../../utils/weatherScoring';
 import { scoreToColor } from '../../utils/colorScale';
 
 export default function WeatherHeatmap() {
-  const { origin, weatherProfile, customProfileParams, selectedDate } = useTripContext();
+  const {
+    origin, weatherProfile, customProfileParams,
+    selectedDate, selectedEndDate, scoreThreshold,
+  } = useTripContext();
   const { data: gridData } = useWeatherGrid();
   const map = useMap();
 
   if (!origin || !gridData?.length) return null;
 
-  // Scale circle radius based on zoom level and grid density
   const zoom = map.getZoom();
   const stepDeg = gridData[0]?.stepDeg || 0.4;
-  // Convert step degrees to approximate pixels at current zoom
   const pixelsPerDeg = (256 * Math.pow(2, zoom)) / 360;
   const radiusPx = Math.max(8, Math.min(40, (stepDeg * pixelsPerDeg) / 2.2));
 
@@ -27,7 +28,11 @@ export default function WeatherHeatmap() {
           weatherProfile,
           customProfileParams,
           selectedDate,
+          selectedEndDate,
         );
+
+        // Hide cells below threshold
+        if (score < scoreThreshold) return null;
 
         const color = scoreToColor(score, 1);
 

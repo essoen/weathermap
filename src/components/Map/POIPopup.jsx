@@ -7,11 +7,11 @@ import { POI_TYPES } from '../../constants';
 
 export default function POIPopup({ poi }) {
   const { t } = useTranslation();
-  const { origin, weatherProfile, customProfileParams, selectedDate, setShowJourney, setSelectedPOI } = useTripContext();
+  const { origin, weatherProfile, customProfileParams, selectedDate, selectedEndDate, setShowJourney, setSelectedPOI } = useTripContext();
   const { data: weather, isLoading } = useWeatherAtPoint(poi.lat, poi.lon);
 
   const { score, entry } = weather
-    ? scoreWeather(weather, weatherProfile, customProfileParams, selectedDate)
+    ? scoreWeather(weather, weatherProfile, customProfileParams, selectedDate, selectedEndDate)
     : { score: 0, entry: null };
 
   const typeInfo = POI_TYPES[poi.type] || { emoji: '📍' };

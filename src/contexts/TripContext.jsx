@@ -13,6 +13,8 @@ export function TripProvider({ children }) {
     return d; // Default to tomorrow at noon
   });
   const [weatherProfile, setWeatherProfile] = useState('fine_weather');
+  const [scoreThreshold, setScoreThreshold] = useState(0); // 0 = show all, 0.7 = only 70%+ match
+  const [selectedEndDate, setSelectedEndDate] = useState(null); // null = single time, Date = range end
   const [customProfileParams, setCustomProfileParams] = useState(null);
   const [selectedPOI, setSelectedPOI] = useState(null);
   const [enabledPOITypes, setEnabledPOITypes] = useState({
@@ -64,7 +66,9 @@ export function TripProvider({ children }) {
         origin, setOrigin, clearOrigin, geolocating,
         radiusHours, setRadiusHours,
         selectedDate, setSelectedDate,
+        selectedEndDate, setSelectedEndDate,
         weatherProfile, setWeatherProfile,
+        scoreThreshold, setScoreThreshold,
         customProfileParams, setCustomProfileParams,
         selectedPOI, setSelectedPOI,
         enabledPOITypes, setEnabledPOITypes,
