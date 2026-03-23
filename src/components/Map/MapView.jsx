@@ -15,8 +15,21 @@ import POIMarkers from './POIMarkers';
 
 function MapRefSetter() {
   const map = useMap();
-  const { setMapRef } = useTripContext();
+  const { setMapRef, origin, radiusHours } = useTripContext();
   useEffect(() => { setMapRef(map); }, [map, setMapRef]);
+
+  // Fly to origin when it changes (e.g. from geolocation)
+  useEffect(() => {
+    if (!origin) return;
+    const radiusKm = radiusHours * 70;
+    const latDelta = radiusKm / 111.32;
+    const lonDelta = radiusKm / (111.32 * Math.cos((origin.lat * Math.PI) / 180));
+    map.fitBounds(
+      [[origin.lat - latDelta, origin.lon - lonDelta], [origin.lat + latDelta, origin.lon + lonDelta]],
+      { padding: [20, 20], duration: 1.5 },
+    );
+  }, [origin, radiusHours, map]);
+
   return null;
 }
 

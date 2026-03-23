@@ -10,6 +10,11 @@ export default function SearchBox() {
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
 
+  // Sync search field when origin is set externally (e.g. geolocation)
+  useEffect(() => {
+    if (origin?.label && !query) setQuery(origin.label);
+  }, [origin]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedQuery(query), 300);
     return () => clearTimeout(timer);

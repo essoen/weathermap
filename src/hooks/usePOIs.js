@@ -23,8 +23,9 @@ async function loadKiteSpots() {
 }
 
 export function usePOIs() {
-  const { origin, radiusHours } = useTripContext();
+  const { origin, radiusHours, enabledPOITypes } = useTripContext();
   const radiusKm = radiusHours * AVG_SPEED_KMH;
+  const anyEnabled = Object.values(enabledPOITypes).some(Boolean);
 
   return useQuery({
     queryKey: ['pois', origin?.lat, origin?.lon, radiusHours],
@@ -44,7 +45,8 @@ export function usePOIs() {
 
       return [...osmPOIs, ...filteredKites];
     },
-    enabled: !!origin,
-    staleTime: 60 * 60 * 1000, // 1 hour — POI data rarely changes
+    // Only fetch when origin is set AND at least one POI type is enabled
+    enabled: !!origin && anyEnabled,
+    staleTime: 60 * 60 * 1000,
   });
 }
