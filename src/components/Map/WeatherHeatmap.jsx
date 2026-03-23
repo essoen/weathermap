@@ -1,4 +1,4 @@
-import { CircleMarker, Tooltip } from 'react-leaflet';
+import { CircleMarker, Tooltip, useMap } from 'react-leaflet';
 import { useTripContext } from '../../contexts/TripContext';
 import { useWeatherGrid } from '../../hooks/useWeatherGrid';
 import { scoreWeather } from '../../utils/weatherScoring';
@@ -6,9 +6,17 @@ import { scoreToColor } from '../../utils/colorScale';
 
 export default function WeatherHeatmap() {
   const { origin, weatherProfile, customProfileParams, selectedDate } = useTripContext();
-  const { data: gridData, isLoading } = useWeatherGrid();
+  const { data: gridData } = useWeatherGrid();
+  const map = useMap();
 
-  if (!origin || !gridData) return null;
+  if (!origin || !gridData?.length) return null;
+
+  // Scale circle radius based on zoom level and grid density
+  const zoom = map.getZoom();
+  const stepDeg = gridData[0]?.stepDeg || 0.4;
+  // Convert step degrees to approximate pixels at current zoom
+  const pixelsPerDeg = (256 * Math.pow(2, zoom)) / 360;
+  const radiusPx = Math.max(8, Math.min(40, (stepDeg * pixelsPerDeg) / 2.2));
 
   return (
     <>
@@ -27,7 +35,7 @@ export default function WeatherHeatmap() {
           <CircleMarker
             key={`${point.lat}-${point.lon}`}
             center={[point.lat, point.lon]}
-            radius={18}
+            radius={radiusPx}
             pathOptions={{
               fillColor: color,
               fillOpacity: 0.5,

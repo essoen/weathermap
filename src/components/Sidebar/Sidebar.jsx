@@ -14,29 +14,47 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile toggle button */}
+      {/* Toggle button — visible when collapsed */}
       {collapsed && (
         <button
           onClick={() => setCollapsed(false)}
-          className="fixed top-4 left-4 z-[1000] bg-white rounded-lg shadow-lg px-3 py-2 text-sm font-medium md:hidden"
+          className="fixed top-4 left-4 z-[1000] bg-white rounded-lg shadow-lg px-3 py-2 text-sm font-medium flex items-center gap-1.5"
         >
-          {t('sidebar.expand')}
+          <span>⛅</span>
+          <span>{t('sidebar.expand')}</span>
         </button>
+      )}
+
+      {/* Backdrop on mobile when sidebar is open */}
+      {!collapsed && (
+        <div
+          onClick={() => setCollapsed(true)}
+          className="fixed inset-0 bg-black/20 z-[999] md:hidden"
+        />
       )}
 
       <div
         className={`
           fixed z-[1000] bg-white shadow-xl overflow-y-auto
           transition-transform duration-300 ease-in-out
-          ${collapsed ? '-translate-x-full md:-translate-x-full' : 'translate-x-0'}
 
           /* Mobile: bottom sheet */
-          bottom-0 left-0 right-0 h-[60vh] rounded-t-2xl
+          bottom-0 left-0 right-0 h-[70vh] rounded-t-2xl
 
           /* Desktop: left sidebar */
           md:top-0 md:bottom-0 md:right-auto md:h-full md:w-[380px] md:rounded-none
+
+          ${collapsed
+            ? 'translate-y-full md:translate-y-0 md:-translate-x-full'
+            : 'translate-y-0 md:translate-x-0'
+          }
         `}
       >
+        {/* Drag handle on mobile */}
+        <div className="md:hidden flex justify-center pt-2 pb-1">
+          <div className="w-10 h-1 bg-gray-300 rounded-full" />
+        </div>
+
         {/* Header */}
         <div className="sticky top-0 bg-white z-10 px-4 py-3 border-b border-gray-100 flex items-center justify-between">
           <h1 className="text-lg font-bold text-gray-900">⛅ {t('app.title')}</h1>

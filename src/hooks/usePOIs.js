@@ -8,7 +8,7 @@ let kiteSpots = null;
 
 async function loadKiteSpots() {
   if (kiteSpots) return kiteSpots;
-  const res = await fetch('/data/kite-spots.json');
+  const res = await fetch(`${import.meta.env.BASE_URL}data/kite-spots.json`);
   const data = await res.json();
   kiteSpots = data.map((s, i) => ({
     id: `kite-${i}`,
