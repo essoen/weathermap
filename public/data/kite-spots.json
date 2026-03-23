@@ -1,0 +1,22 @@
+[
+  {"name": "Solastranden", "lat": 58.886, "lon": 5.585, "description": "Lang sandstrand, god for kiting"},
+  {"name": "Bore", "lat": 58.789, "lon": 5.539, "description": "Populær kitestrand på Jæren"},
+  {"name": "Brusand", "lat": 58.582, "lon": 5.796, "description": "Brei sandstrand, bra vindforhold"},
+  {"name": "Hellestø", "lat": 58.846, "lon": 5.529, "description": "Eksponert strand med god vind"},
+  {"name": "Hvasser", "lat": 59.073, "lon": 10.457, "description": "Kjent kitespot i Vestfold"},
+  {"name": "Saltstein", "lat": 59.025, "lon": 10.445, "description": "Populær på østlandet"},
+  {"name": "Lista", "lat": 58.109, "lon": 6.690, "description": "Flatt og vindutsatt, perfekt for kite"},
+  {"name": "Hoddevik", "lat": 62.118, "lon": 5.116, "description": "Kjent surf- og kitespot på Stad"},
+  {"name": "Ervik", "lat": 62.134, "lon": 5.094, "description": "Nabostranden til Hoddevik"},
+  {"name": "Orrestranda", "lat": 58.722, "lon": 5.515, "description": "Lang strand på Jæren"},
+  {"name": "Sola strand", "lat": 58.873, "lon": 5.563, "description": "Nær Stavanger, mye brukt"},
+  {"name": "Sjøsanden, Mandal", "lat": 58.024, "lon": 7.461, "description": "Sørlandets fineste strand"},
+  {"name": "Raudsand", "lat": 62.680, "lon": 7.072, "description": "Kitespot i Møre og Romsdal"},
+  {"name": "Bud", "lat": 62.907, "lon": 6.908, "description": "Vindutsatt kyststed"},
+  {"name": "Kvitsøy", "lat": 59.065, "lon": 5.418, "description": "Øy utenfor Stavanger med god vind"},
+  {"name": "Vigdel", "lat": 58.849, "lon": 5.536, "description": "Kjent surfestrand nær Sola"},
+  {"name": "Mjølhus", "lat": 58.406, "lon": 5.931, "description": "Kitestrand i Egersund-området"},
+  {"name": "Feistein fyr", "lat": 58.843, "lon": 5.498, "description": "Vindutsatt punkt på Jæren"},
+  {"name": "Reve", "lat": 58.755, "lon": 5.519, "description": "Strand på Jæren"},
+  {"name": "Lomvi, Hå", "lat": 58.633, "lon": 5.650, "description": "Kitespot på Jæren"}
+]

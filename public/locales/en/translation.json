@@ -1,0 +1,73 @@
+{
+  "app": {
+    "title": "Værtur"
+  },
+  "sidebar": {
+    "search_placeholder": "Where are you starting from?",
+    "distance_label": "Travel distance",
+    "hours": "hours",
+    "approx_km": "approx. {{km}} km",
+    "weather_profile": "Weather profile",
+    "poi_filter": "Points of interest",
+    "date_time": "Date and time",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "weekend": "Weekend",
+    "collapse": "Hide",
+    "expand": "Show menu"
+  },
+  "profiles": {
+    "fine_weather": "Nice weather",
+    "kite_wind": "Kite wind",
+    "hiking": "Hiking conditions",
+    "beach": "Beach/swimming",
+    "custom": "Custom"
+  },
+  "params": {
+    "temperature": "Temperature",
+    "wind_speed": "Wind speed",
+    "wind_gusts": "Wind gusts",
+    "precipitation": "Precipitation",
+    "cloud_cover": "Cloud cover"
+  },
+  "poi": {
+    "cabin": "Cabins",
+    "beach": "Beaches",
+    "kite": "Kite spots",
+    "viewpoint": "Viewpoints",
+    "camping": "Camping",
+    "show_route": "Show route",
+    "no_route": "No route found",
+    "match": "{{score}}% match"
+  },
+  "journey": {
+    "title": "Route",
+    "duration": "Travel time",
+    "departure": "Departure",
+    "arrival": "Arrival",
+    "option": "Option {{n}}",
+    "minutes": "min",
+    "hours_short": "h",
+    "line": "Line {{code}}"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "close": "Close"
+  },
+  "layers": {
+    "osm": "OpenStreetMap",
+    "topo": "Kartverket Topo"
+  },
+  "attribution": {
+    "weather": "Weather: MET Norway / Open-Meteo",
+    "map": "Map: OSM / Kartverket",
+    "transport": "Transit: Entur",
+    "poi_source": "POI: OpenStreetMap"
+  },
+  "language": {
+    "no": "NO",
+    "en": "EN"
+  }
+}

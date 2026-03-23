@@ -1,0 +1,73 @@
+{
+  "app": {
+    "title": "Værtur"
+  },
+  "sidebar": {
+    "search_placeholder": "Hvor starter du?",
+    "distance_label": "Reiseavstand",
+    "hours": "timer",
+    "approx_km": "ca. {{km}} km",
+    "weather_profile": "Værprofil",
+    "poi_filter": "Interessepunkter",
+    "date_time": "Dato og tid",
+    "today": "I dag",
+    "tomorrow": "I morgen",
+    "weekend": "Helg",
+    "collapse": "Skjul",
+    "expand": "Vis meny"
+  },
+  "profiles": {
+    "fine_weather": "Fint vær",
+    "kite_wind": "Kitevind",
+    "hiking": "Turgåer",
+    "beach": "Strand/bading",
+    "custom": "Egendefinert"
+  },
+  "params": {
+    "temperature": "Temperatur",
+    "wind_speed": "Vindstyrke",
+    "wind_gusts": "Vindkast",
+    "precipitation": "Nedbør",
+    "cloud_cover": "Skydekke"
+  },
+  "poi": {
+    "cabin": "Hytter",
+    "beach": "Badeplasser",
+    "kite": "Kitespots",
+    "viewpoint": "Utsiktspunkter",
+    "camping": "Camping",
+    "show_route": "Vis reiserute",
+    "no_route": "Ingen reiserute funnet",
+    "match": "{{score}}% match"
+  },
+  "journey": {
+    "title": "Reiserute",
+    "duration": "Reisetid",
+    "departure": "Avgang",
+    "arrival": "Ankomst",
+    "option": "Alternativ {{n}}",
+    "minutes": "min",
+    "hours_short": "t",
+    "line": "Linje {{code}}"
+  },
+  "common": {
+    "loading": "Laster...",
+    "error": "Noe gikk galt",
+    "retry": "Prøv igjen",
+    "close": "Lukk"
+  },
+  "layers": {
+    "osm": "OpenStreetMap",
+    "topo": "Kartverket Topo"
+  },
+  "attribution": {
+    "weather": "Værdata: MET Norway / Open-Meteo",
+    "map": "Kart: OSM / Kartverket",
+    "transport": "Reisedata: Entur",
+    "poi_source": "POI: OpenStreetMap"
+  },
+  "language": {
+    "no": "NO",
+    "en": "EN"
+  }
+}
