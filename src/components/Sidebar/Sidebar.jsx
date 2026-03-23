@@ -79,10 +79,20 @@ export default function Sidebar() {
           <JourneyPanel />
         </div>
 
-        {/* Attribution */}
-        <div className="px-4 py-3 border-t border-gray-100 text-xs text-gray-400 space-y-0.5">
+        {/* Attribution + Sponsor */}
+        <div className="px-4 py-3 border-t border-gray-100 text-xs text-gray-400 space-y-1">
           <div>{t('attribution.weather')}</div>
           <div>{t('attribution.transport')} | {t('attribution.poi_source')}</div>
+          <div className="pt-1">
+            <a
+              href="https://github.com/sponsors/essoen"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-pink-500 hover:text-pink-600 font-medium"
+            >
+              ♥ Støtt prosjektet
+            </a>
+          </div>
         </div>
       </div>
     </>
