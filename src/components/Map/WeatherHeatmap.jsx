@@ -1,4 +1,4 @@
-import { CircleMarker, Tooltip, useMap } from 'react-leaflet';
+import { Rectangle, Tooltip } from 'react-leaflet';
 import { useTripContext } from '../../contexts/TripContext';
 import { useWeatherGrid } from '../../hooks/useWeatherGrid';
 import { scoreWeather } from '../../utils/weatherScoring';
@@ -10,14 +10,11 @@ export default function WeatherHeatmap() {
     selectedDate, selectedEndDate, scoreThreshold,
   } = useTripContext();
   const { data: gridData } = useWeatherGrid();
-  const map = useMap();
 
   if (!origin || !gridData?.length) return null;
 
-  const zoom = map.getZoom();
   const stepDeg = gridData[0]?.stepDeg || 0.4;
-  const pixelsPerDeg = (256 * Math.pow(2, zoom)) / 360;
-  const radiusPx = Math.max(8, Math.min(40, (stepDeg * pixelsPerDeg) / 2.2));
+  const halfStep = stepDeg / 2;
 
   return (
     <>
@@ -37,10 +34,12 @@ export default function WeatherHeatmap() {
         const color = scoreToColor(score, 1);
 
         return (
-          <CircleMarker
+          <Rectangle
             key={`${point.lat}-${point.lon}`}
-            center={[point.lat, point.lon]}
-            radius={radiusPx}
+            bounds={[
+              [point.lat - halfStep, point.lon - halfStep],
+              [point.lat + halfStep, point.lon + halfStep],
+            ]}
             pathOptions={{
               fillColor: color,
               fillOpacity: 0.5,
@@ -57,7 +56,7 @@ export default function WeatherHeatmap() {
                 <div className="font-medium mt-1">{Math.round(score * 100)}% match</div>
               </div>
             </Tooltip>
-          </CircleMarker>
+          </Rectangle>
         );
       })}
     </>
